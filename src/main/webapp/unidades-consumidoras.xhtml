@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="cabecalho"></ui:define>
+
+
+	<ui:define name="conteudo">
+		<div>
+			<p:fieldset>
+
+				<h:form id="tabelaUnidades">
+					<p:growl id="growl" />
+
+
+					<p:outputLabel style="font-size:40px"
+						value="UnidadesConsumidoras" />
+
+					<br />
+					<br />
+					<p:commandButton value="Novo"
+						action="form-unidade-consumidora?faces-redirect=true" style="margin:10px;"/>
+
+
+					<p:dataTable value="#{unidadeConsumidoraController.unidadesConsumidoras}"
+						var="unidade" size="small">
+						<f:facet name="header">Lista de Unidades do Usuário</f:facet>
+						<div>
+							<p:column headerText="ID">
+								<p:outputLabel value="#{unidade.id}" />
+							</p:column>
+						</div>
+						<div>
+							<p:column headerText="Endereço">
+								<p:outputLabel value="#{unidade.endereco}" />
+							</p:column>
+						</div>
+						<div>
+							<p:column headerText="Opções">
+								<p:commandButton icon="pi pi-pencil" action="#{unidadeConsumidoraController.editar(unidade)}"/>
+								&nbsp;
+								<p:commandButton icon="pi pi-trash" process="@this"
+									oncomplete="PF('dialogoExclusao').show()">
+										<f:setPropertyActionListener value="#{unidade.id}" target="#{unidadeConsumidoraController.idExclusao}"/>
+								</p:commandButton>
+								&nbsp;
+								<p:commandButton icon="pi pi-search" action="#{unidadeConsumidoraController.visualizarDashboard(unidade)}"/>
+								&nbsp;
+							</p:column>
+						</div>
+					</p:dataTable>
+				</h:form>
+			</p:fieldset>
+		</div>
+
+		<div>
+			<h:form>
+				<p:confirmDialog widgetVar="dialogoExclusao" showEffect="fade"
+					width="300" message="Excluir Unidade" header="Confirmar"
+					severity="warn">
+					<p:commandButton value="Sim" icon="pi pi-check" process="@this"
+						update=":tabelaUnidades"
+						oncomplete="PF('dialogoExclusao').hide()" 
+						actionListener="#{unidadeConsumidoraController.excluir()}"/>
+					<p:commandButton value="No" type="button"
+						styleClass="ui-button-secondary" icon="pi pi-times"
+						onclick="PF('dialogoExclusao').hide()" />
+				</p:confirmDialog>
+
+			</h:form>
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

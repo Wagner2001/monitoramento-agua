@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="cabecalho"></ui:define>
+
+
+	<ui:define name="conteudo">
+
+		<div>
+			<p:fieldset>
+
+				<p:outputLabel style="font-size:40px"
+					value="Cadastro de Unidade" />
+				<p:growl id="message" />
+
+				<h:form>
+					<p:panelGrid styleClass="ui-noborder">
+
+						<p:row>
+							<p:column colspan="3">
+								<p:outputLabel for="id" value="Id: " />
+							</p:column>
+							<p:column colspan="7">
+								<p:inputText id="id" style="width: 50rem;"
+									value="#{formUnidadeConsumidoraController.unidadeConsumidora.id}" readonly="true"
+									disabled="true" placeholder="#" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column colspan="3">
+								<p:outputLabel for="usuario" value="Usuário: " />
+							</p:column>
+							<p:column colspan="7">
+								<p:inputText id="usuario" style="width: 50rem;" disabled="true" readonly="true"
+									 value="#{formUnidadeConsumidoraController.unidadeConsumidora.usuario.email}" required="true" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column colspan="3">
+								<p:outputLabel for="endereco" value="Endereço: " />
+							</p:column>
+							<p:column colspan="7">
+								<p:inputText id="endereco" style="width: 50rem;"
+									 value="#{formUnidadeConsumidoraController.unidadeConsumidora.endereco}" required="true" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column colspan="2">
+								<p:commandButton value="Salvar" action="#{formUnidadeConsumidoraController.salvar()}"
+									process="@form" update="@form :message" />
+							&nbsp;
+							<p:commandButton value="Voltar"
+									action="unidades-consumidoras?faces-redirect=true" process="@this" />
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
+				</h:form>
+
+
+			</p:fieldset>
+
+		</div>
+
+
+
+	</ui:define>
+
+</ui:composition>
+
+</html>
